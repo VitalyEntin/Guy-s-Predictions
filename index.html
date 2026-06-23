@@ -3,400 +3,497 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Второй тур ЧМ 2026</title>
+  <title>Третий тур ЧМ 2026</title>
   <style>
     :root {
-      color-scheme: light;
-      --bg: #f5f7fb;
-      --ink: #172033;
+      --bg: #f6f7fb;
+      --ink: #182230;
       --muted: #667085;
-      --line: #d9e1ef;
       --card: #ffffff;
-      --blue: #2457d6;
-      --blue2: #e9efff;
+      --line: #d8dfec;
+      --blue: #2563eb;
+      --blue-soft: #eaf1ff;
       --green: #11845b;
-      --soft-green: #e7f8ef;
-      --yellow: #fff4c7;
+      --green-soft: #e7f8ef;
       --red: #d92d20;
-      --shadow: 0 18px 45px rgba(25, 39, 68, .13);
+      --yellow: #fff4c7;
+      --shadow: 0 18px 42px rgba(25, 38, 67, .13);
     }
     * { box-sizing: border-box; }
     body {
       margin: 0;
+      min-height: 100vh;
       font-family: system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
-      background: radial-gradient(circle at 10% 0%, #dbeafe 0, transparent 34%), var(--bg);
       color: var(--ink);
+      background:
+        radial-gradient(circle at 12% 0%, #dbeafe 0, transparent 30%),
+        radial-gradient(circle at 92% 10%, #dcfce7 0, transparent 24%),
+        var(--bg);
     }
     button, input { font: inherit; }
-    .app { min-height: 100vh; display: grid; grid-template-rows: auto 1fr; }
     header {
-      padding: 16px 20px;
-      background: rgba(255,255,255,.84);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--line);
       position: sticky;
       top: 0;
-      z-index: 3;
+      z-index: 5;
+      background: rgba(255, 255, 255, .88);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(12px);
     }
-    .top { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .top {
+      width: min(1120px, 100%);
+      margin: 0 auto;
+      padding: 14px 18px;
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      justify-content: space-between;
+    }
     .brand { font-weight: 950; font-size: 22px; }
-    .progress { flex: 1; max-width: 420px; }
-    .bar { height: 10px; background: #e8edf6; border-radius: 999px; overflow: hidden; }
-    .bar span { display: block; height: 100%; background: linear-gradient(90deg, #2457d6, #11845b); width: 0%; }
-    .small { color: var(--muted); font-size: 14px; margin-top: 5px; }
-    main { width: 100%; max-width: 1100px; margin: 0 auto; padding: 24px 18px 42px; }
+    .progress { flex: 1; max-width: 460px; }
+    .bar { height: 10px; border-radius: 999px; background: #e8edf6; overflow: hidden; }
+    .bar span { display: block; width: 0%; height: 100%; background: linear-gradient(90deg, #2563eb, #12b76a); }
+    .small { margin-top: 5px; color: var(--muted); font-size: 14px; }
+    main { width: min(1120px, 100%); margin: 0 auto; padding: 24px 18px 42px; }
     .screen { display: none; }
     .screen.active { display: block; }
-    .hero, .card {
+    .panel {
       background: var(--card);
       border: 1px solid var(--line);
-      border-radius: 22px;
+      border-radius: 24px;
       box-shadow: var(--shadow);
+      padding: 24px;
     }
-    .hero { padding: 28px; display: grid; gap: 20px; }
-    h1, h2, h3 { margin: 0; letter-spacing: 0; }
-    h1 { font-size: clamp(30px, 5vw, 52px); line-height: 1.02; }
-    h2 { font-size: clamp(24px, 4vw, 38px); line-height: 1.08; }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 { font-size: clamp(32px, 6vw, 56px); line-height: 1.02; margin-bottom: 12px; }
+    h2 { font-size: clamp(26px, 4vw, 42px); line-height: 1.08; margin-bottom: 8px; }
     p { line-height: 1.5; }
-    .name-row { display: flex; gap: 12px; flex-wrap: wrap; }
+    .name-row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-top: 18px; }
     input {
       border: 2px solid var(--line);
-      border-radius: 14px;
-      padding: 14px 16px;
+      border-radius: 16px;
+      padding: 15px 16px;
       min-width: min(420px, 100%);
       font-size: 18px;
+      background: #fff;
     }
     .btn {
       border: 0;
-      border-radius: 14px;
-      background: var(--blue);
-      color: white;
+      border-radius: 16px;
+      min-height: 54px;
       padding: 14px 20px;
-      font-weight: 850;
+      font-weight: 900;
+      color: #fff;
+      background: var(--blue);
       cursor: pointer;
-      min-height: 52px;
     }
-    .btn.secondary { background: #eef2f7; color: var(--ink); }
+    .btn.secondary { color: var(--ink); background: #eef2f7; }
     .btn.green { background: var(--green); }
     .btn.red { background: var(--red); }
-    .match-head { display: flex; justify-content: space-between; gap: 16px; align-items: center; margin-bottom: 18px; }
-    .pill { background: var(--blue2); color: #153a9b; border-radius: 999px; padding: 8px 12px; font-weight: 850; display: inline-flex; align-items: center; gap: 6px; }
-    .teams { display: grid; grid-template-columns: 1fr auto 1fr; gap: 14px; align-items: center; margin: 18px 0 20px; }
-    .team { background: #f8fafc; border: 1px solid var(--line); border-radius: 20px; padding: 18px; text-align: center; min-height: 180px; display: grid; place-items: center; }
-    .flag { width: 112px; height: 76px; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 20px rgba(20,30,50,.12); border: 1px solid var(--line); background: #fff; }
-    .flag img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .team-name { font-size: clamp(22px, 4vw, 34px); font-weight: 950; }
-    .vs { font-size: 22px; font-weight: 950; color: var(--red); }
-    .pick-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 18px 0; }
-    .pick {
-      text-align: center;
+    .match-top {
+      display: flex;
+      gap: 12px;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 16px;
+    }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border-radius: 999px;
+      padding: 8px 12px;
+      background: var(--blue-soft);
+      color: #153a9b;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+    .teams {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: stretch;
+      gap: 14px;
+      margin: 18px 0;
+    }
+    .team-card {
       border: 2px solid var(--line);
-      background: linear-gradient(180deg, #ffffff, #f7faff);
-      border-radius: 22px;
-      padding: 18px 12px 16px;
+      border-radius: 24px;
+      background: linear-gradient(180deg, #fff, #f8fbff);
+      padding: 18px;
+      display: grid;
+      gap: 14px;
+      align-content: start;
+    }
+    .team-head { display: grid; justify-items: center; gap: 10px; text-align: center; }
+    .flag {
+      width: 118px;
+      height: 78px;
+      border-radius: 14px;
+      overflow: hidden;
+      background: #fff;
+      border: 1px solid var(--line);
+      box-shadow: 0 8px 18px rgba(20, 30, 50, .12);
+    }
+    .flag img { display: block; width: 100%; height: 100%; object-fit: cover; }
+    .team-name { font-size: clamp(24px, 4vw, 36px); font-weight: 950; line-height: 1.05; }
+    .vs { display: grid; place-items: center; color: var(--red); font-size: 24px; font-weight: 950; padding: 0 4px; }
+    .need {
+      border-radius: 18px;
+      background: var(--yellow);
+      border: 1px solid #f5d76e;
+      padding: 14px;
+      font-size: 20px;
+      font-weight: 850;
+      line-height: 1.35;
+    }
+    .scores { display: grid; gap: 8px; }
+    .scores-title { color: var(--muted); font-size: 15px; font-weight: 800; }
+    .score-chip {
+      border-radius: 14px;
+      background: #f2f4f7;
+      padding: 10px 12px;
+      font-size: 18px;
+      font-weight: 850;
+    }
+    .pick-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 18px; }
+    .pick {
+      border: 2px solid var(--line);
+      border-radius: 24px;
+      background: linear-gradient(180deg, #fff, #f8fbff);
+      padding: 18px 12px;
+      text-align: center;
       cursor: pointer;
-      box-shadow: 0 10px 26px rgba(36, 87, 214, .08);
+      box-shadow: 0 10px 24px rgba(36, 99, 235, .08);
       transition: transform .12s ease, border-color .12s ease, background .12s ease;
     }
     .pick:hover { transform: translateY(-2px); border-color: #9bb4ff; }
-    .pick.selected { border-color: var(--blue); background: #eaf0ff; box-shadow: 0 12px 32px rgba(36, 87, 214, .18); }
-    .pick b { display: block; font-size: 31px; }
-    .pick .pick-name { display: block; color: #344054; margin-top: 5px; font-weight: 750; }
-    .pick .pick-prob { display: inline-flex; margin-top: 10px; padding: 7px 12px; border-radius: 999px; background: var(--soft-green); color: #087443; font-weight: 950; font-size: 18px; }
-    .first-results {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 14px;
-      margin: 16px 0 0;
+    .pick.selected { border-color: var(--blue); background: var(--blue-soft); }
+    .pick b { display: block; font-size: 34px; }
+    .pick-name { display: block; min-height: 44px; margin-top: 6px; color: #344054; font-size: 18px; font-weight: 850; }
+    .chance {
+      display: inline-flex;
+      justify-content: center;
+      margin-top: 10px;
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: 18px;
+      font-weight: 950;
     }
-    .first-card {
-      background: linear-gradient(135deg, #eefdf5, #ffffff);
-      border: 2px solid #b7ebd0;
-      border-radius: 20px;
-      padding: 16px;
-    }
-    .first-card b { display: block; font-size: 18px; margin-bottom: 6px; }
-    .first-card span { font-size: 20px; font-weight: 850; color: #087443; line-height: 1.25; }
-    .h2h-feature {
+    .chance.hot { background: var(--green-soft); color: #087443; }
+    .chance.mid { background: #fff2c2; color: #9a6700; }
+    .chance.low { background: #fee4e2; color: #b42318; }
+    .chance.tiny { background: #f2f4f7; color: #475467; }
+    .hint {
       margin-top: 18px;
-      border: 2px solid #c7d7fe;
-      background: linear-gradient(135deg, #eef4ff, #fffdf0);
-      border-radius: 24px;
-      padding: 20px 24px;
-      text-align: center;
-      box-shadow: 0 14px 34px rgba(36, 87, 214, .10);
+      border-radius: 18px;
+      background: #f8fafc;
+      border: 1px solid var(--line);
+      padding: 14px 16px;
+      color: #344054;
+      font-size: 17px;
+      line-height: 1.45;
     }
-    .h2h-feature h3 { font-size: 24px; margin-bottom: 10px; }
-    .h2h-main { font-size: 22px; line-height: 1.35; font-weight: 850; color: #172033; }
-    .h2h-last { margin-top: 8px; font-size: 17px; color: var(--muted); }
-    .info-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 16px; }
-    .info { border: 1px solid var(--line); background: #fbfcff; border-radius: 18px; padding: 16px; }
-    .info h3 { font-size: 19px; margin-bottom: 10px; }
-    .stats { display: grid; gap: 12px; font-size: 16px; color: #2b3447; }
-    .team-form { display: grid; gap: 8px; }
-    .form-head { display: flex; justify-content: space-between; gap: 12px; align-items: center; }
-    .form-dots { display: flex; gap: 7px; justify-content: flex-start; }
-    .dot { width: 22px; height: 22px; border-radius: 50%; display: inline-grid; place-items: center; color: #fff; font-size: 12px; font-weight: 950; box-shadow: inset 0 -2px 0 rgba(0,0,0,.12); }
-    .dot.win { background: #12b76a; }
-    .dot.draw { background: #98a2b3; }
-    .dot.loss { background: #f04438; }
-    .goals-line { color: var(--muted); font-size: 14px; }
-    .note { color: var(--muted); font-size: 14px; }
-    .actions { display: flex; justify-content: space-between; gap: 10px; margin-top: 22px; flex-wrap: wrap; }
-    .review-list { display: grid; gap: 10px; margin-top: 16px; }
-    .review-item { display: flex; justify-content: space-between; gap: 14px; align-items: center; border: 1px solid var(--line); border-radius: 14px; padding: 12px; background: #fff; }
-    .modal { position: fixed; inset: 0; background: rgba(11, 18, 32, .52); display: none; place-items: center; z-index: 10; padding: 20px; }
+    .actions { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-top: 22px; }
+    .review-list { display: grid; gap: 10px; margin-top: 18px; }
+    .review-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      align-items: center;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 13px;
+      background: #fff;
+    }
+    .modal {
+      position: fixed;
+      inset: 0;
+      display: none;
+      place-items: center;
+      padding: 20px;
+      background: rgba(12, 18, 32, .56);
+      z-index: 20;
+    }
     .modal.active { display: grid; }
-    .modal-card { width: min(520px, 100%); background: #fff; border-radius: 22px; padding: 24px; box-shadow: var(--shadow); }
+    .modal-card {
+      width: min(520px, 100%);
+      background: #fff;
+      border-radius: 24px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
     .modal-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; }
-    @media (max-width: 800px) {
+    @media (max-width: 820px) {
       .top { align-items: flex-start; flex-direction: column; }
       .progress { max-width: none; width: 100%; }
-      .teams, .info-grid, .pick-grid, .first-results { grid-template-columns: 1fr; }
-      .vs { text-align: center; }
-      .match-head { align-items: flex-start; flex-direction: column; }
-      .h2h-main { font-size: 19px; }
+      .teams, .pick-grid { grid-template-columns: 1fr; }
+      .vs { min-height: 34px; }
+      .match-top { flex-direction: column; }
+      .review-item { align-items: flex-start; flex-direction: column; }
     }
   </style>
 </head>
 <body>
-  <div class="app">
-    <header>
-      <div class="top">
-        <div class="brand">🏆 Второй тур ЧМ 2026</div>
-        <div class="progress">
-          <div class="bar"><span id="bar"></span></div>
-          <div class="small" id="progressText">Матч 1 из 24</div>
+  <header>
+    <div class="top">
+      <div class="brand">Третий тур ЧМ 2026</div>
+      <div class="progress">
+        <div class="bar"><span id="bar"></span></div>
+        <div class="small" id="progressText">Матч 1 из 24</div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="screen active" id="start">
+      <div class="panel">
+        <h1>Давай угадывать футбол</h1>
+        <p>Тут только третий тур групп. Смотрим, кому нужна победа, кому хватит ничьей, и выбираем 1, X или 2.</p>
+        <p class="hint">В подсказках есть только результаты этого чемпионата мира. Никакой старой статистики.</p>
+        <div class="name-row">
+          <input id="playerName" placeholder="Имя игрока">
+          <button class="btn" id="startBtn">Начать</button>
         </div>
       </div>
-    </header>
-    <main>
-      <section id="startScreen" class="screen active">
-        <div class="hero">
-          <h1>Теперь угадываем второй матч в группе.</h1>
-          <p>Игры идут по группам: сначала группа A, потом B, C и дальше. Выбирай <b>1</b>, <b>X</b> или <b>2</b>.</p>
-          <div class="name-row">
-            <input id="playerName" placeholder="Напиши своё имя">
-            <button class="btn" id="startBtn">Начать</button>
+    </section>
+
+    <section class="screen" id="match">
+      <div class="panel">
+        <div class="match-top">
+          <div>
+            <span class="pill" id="groupLabel"></span>
+            <h2 id="matchTitle"></h2>
+            <div class="small" id="matchTime"></div>
           </div>
-          <p class="note">Я добавил результат первого матча каждой команды. Если команда ещё не сыграла первый матч, это тоже написано.</p>
+          <span class="pill" id="savedLabel">Сохранено</span>
         </div>
-      </section>
 
-      <section id="matchScreen" class="screen">
-        <div class="card" style="padding: 22px;">
-          <div class="match-head">
-            <div>
-              <div class="pill" id="matchMeta"></div>
-              <h2 id="matchTitle" style="margin-top:12px;"></h2>
-              <div class="note" id="venueText"></div>
+        <div class="teams">
+          <article class="team-card">
+            <div class="team-head">
+              <div class="flag"><img id="flag1" alt=""></div>
+              <div class="team-name" id="team1Name"></div>
             </div>
-            <button class="btn secondary" id="saveBtn">Сохранено автоматически</button>
-          </div>
-
-          <div class="teams">
-            <div class="team"><div class="flag" id="flag1"></div><div class="team-name" id="team1"></div></div>
-            <div class="vs">VS</div>
-            <div class="team"><div class="flag" id="flag2"></div><div class="team-name" id="team2"></div></div>
-          </div>
-
-          <div class="first-results">
-            <div class="first-card"><b id="firstName1"></b><span id="firstResult1"></span></div>
-            <div class="first-card"><b id="firstName2"></b><span id="firstResult2"></span></div>
-          </div>
-
-          <h3 style="margin-top:20px;">Твой прогноз</h3>
-          <div class="pick-grid">
-            <button class="pick" data-pick="1"><b>1</b><span class="pick-name" id="pick1"></span><span class="pick-prob" id="prob1"></span></button>
-            <button class="pick" data-pick="X"><b>X</b><span class="pick-name">Ничья</span><span class="pick-prob" id="probX"></span></button>
-            <button class="pick" data-pick="2"><b>2</b><span class="pick-name" id="pick2"></span><span class="pick-prob" id="prob2"></span></button>
-          </div>
-
-          <div class="h2h-feature">
-            <h3>Они уже играли?</h3>
-            <div id="h2hBox"></div>
-          </div>
-
-          <div class="info-grid">
-            <div class="info">
-              <h3>Последние игры</h3>
-              <div class="stats" id="statsBox"></div>
+            <div class="need" id="need1"></div>
+            <div class="scores">
+              <div class="score-chip" id="score11"></div>
+              <div class="score-chip" id="score12"></div>
             </div>
-            <div class="info">
-              <h3>Подсказка</h3>
-              <p class="note" style="font-size:16px;">Проценты — это шанс по котировкам букмекеров. Зелёный кружок — победа, серый — ничья, красный — поражение.</p>
-              <p class="note" style="font-size:16px;">Но второй матч в группе часто бывает хитрым: командам уже нужны очки!</p>
-            </div>
-          </div>
+          </article>
 
-          <div class="actions">
-            <button class="btn secondary" id="prevBtn">Назад</button>
-            <button class="btn" id="reviewBtn">Посмотреть все прогнозы</button>
-          </div>
+          <div class="vs">VS</div>
+
+          <article class="team-card">
+            <div class="team-head">
+              <div class="flag"><img id="flag2" alt=""></div>
+              <div class="team-name" id="team2Name"></div>
+            </div>
+            <div class="need" id="need2"></div>
+            <div class="scores">
+              <div class="score-chip" id="score21"></div>
+              <div class="score-chip" id="score22"></div>
+            </div>
+          </article>
         </div>
-      </section>
 
-      <section id="reviewScreen" class="screen">
-        <div class="card" style="padding: 24px;">
-          <h2>Проверка прогнозов</h2>
-          <p>Посмотри список. Если всё хорошо, нажми «Закрепить всё».</p>
-          <div class="review-list" id="reviewList"></div>
-          <div class="actions">
-            <button class="btn secondary" id="backToGameBtn">Вернуться к матчам</button>
-            <button class="btn green" id="lockAllBtn">Закрепить всё</button>
-            <button class="btn secondary" id="downloadBtn">Скачать прогнозы</button>
-            <button class="btn red" id="resetBtn">Начать заново</button>
-          </div>
+        <div class="pick-grid">
+          <button class="pick" data-pick="1"><b>1</b><span class="pick-name" id="pick1Name"></span><span class="chance" id="chance1"></span></button>
+          <button class="pick" data-pick="X"><b>X</b><span class="pick-name">Ничья</span><span class="chance" id="chanceX"></span></button>
+          <button class="pick" data-pick="2"><b>2</b><span class="pick-name" id="pick2Name"></span><span class="chance" id="chance2"></span></button>
         </div>
-      </section>
-    </main>
-  </div>
+
+        <div class="hint">Выбери не только сердцем. Смотри: кому очень нужна победа, а кто уже может играть спокойно.</div>
+
+        <div class="actions">
+          <button class="btn secondary" id="backBtn">Назад</button>
+          <button class="btn secondary" id="reviewBtn">Проверить ответы</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen" id="review">
+      <div class="panel">
+        <h2>Проверка ответов</h2>
+        <p>Можно вернуться и поменять любой выбор. Когда всё готово, нажми сохранить.</p>
+        <div class="review-list" id="reviewList"></div>
+        <div class="actions">
+          <button class="btn secondary" id="backToMatchBtn">Назад</button>
+          <button class="btn green" id="lockBtn">Сохранить всё</button>
+          <button class="btn red" id="resetBtn">Начать заново</button>
+        </div>
+      </div>
+    </section>
+  </main>
 
   <div class="modal" id="confirmModal">
     <div class="modal-card">
-      <h2>Ты уверен?</h2>
+      <h2>Точно выбираем?</h2>
       <p id="confirmText"></p>
       <div class="modal-actions">
-        <button class="btn secondary" id="cancelPickBtn">Нет, изменить</button>
-        <button class="btn green" id="confirmPickBtn">Да, сохранить</button>
+        <button class="btn secondary" id="cancelPickBtn">Нет, подумать</button>
+        <button class="btn green" id="confirmPickBtn">Да, дальше</button>
       </div>
     </div>
   </div>
 
-  <script id="data" type="application/json">{"generated": "2026-06-17", "round": "second-group-match", "notes": "Some Group K/L teams had not finished their first match yet when this was generated.", "sources": ["Oddschecker World Cup 2026 match odds, read 2026-06-07", "martj42 international_results historical results CSV", "Local FIFA World Cup 2026 schedule data previously built from FIFA/wc.dcs.pm"], "matches": [{"id": 25, "group": "A", "date": "2026-06-18", "time": "19:00", "venue": "Mercedes-Benz Stadium, Atlanta", "team1": "Czech Republic", "team2": "South Africa", "team1Ru": "Чехия", "team2Ru": "ЮАР", "flag1": "🇨🇿", "flag2": "🇿🇦", "flagCode1": "cz", "flagCode2": "za", "odds": {"one": 100, "draw": 240, "two": 310}, "prob": {"one": 48.2, "draw": 28.3, "two": 23.5}, "stats1": {"games": 5, "wins": 3, "draws": 2, "losses": 0, "gf": 17, "ga": 6, "recent": [{"date": "2026-06-04", "opponent": "Guatemala", "score": "5:1", "result": "W"}, {"date": "2026-05-31", "opponent": "Kosovo", "score": "2:1", "result": "W"}, {"date": "2026-03-31", "opponent": "Denmark", "score": "2:2", "result": "D"}, {"date": "2026-03-26", "opponent": "Republic of Ireland", "score": "2:2", "result": "D"}, {"date": "2025-11-17", "opponent": "Gibraltar", "score": "6:0", "result": "W"}]}, "stats2": {"games": 5, "wins": 1, "draws": 2, "losses": 2, "gf": 4, "ga": 5, "recent": [{"date": "2026-06-06", "opponent": "Jamaica", "score": "1:0", "result": "W"}, {"date": "2026-05-29", "opponent": "Nicaragua", "score": "0:0", "result": "D"}, {"date": "2026-03-31", "opponent": "Panama", "score": "1:2", "result": "L"}, {"date": "2026-03-27", "opponent": "Panama", "score": "1:1", "result": "D"}, {"date": "2026-01-04", "opponent": "Cameroon", "score": "1:2", "result": "L"}]}, "h2h": {"games": 1, "team1Wins": 0, "team2Wins": 0, "draws": 1, "last": {"date": "1997-12-13", "home": "South Africa", "away": "Czech Republic", "score": "2:2", "tournament": "Confederations Cup"}}, "firstResult1": "поражение 1:2 против Южной Кореи", "firstResult2": "поражение 0:2 против Мексики"}, {"id": 28, "group": "A", "date": "2026-06-19", "time": "04:00", "venue": "Estadio Akron, Guadalajara", "team1": "Mexico", "team2": "South Korea", "team1Ru": "Мексика", "team2Ru": "Южная Корея", "flag1": "🇲🇽", "flag2": "🇰🇷", "flagCode1": "mx", "flagCode2": "kr", "odds": {"one": -120, "draw": 260, "two": 370}, "prob": {"one": 52.7, "draw": 26.8, "two": 20.5}, "stats1": {"games": 5, "wins": 3, "draws": 2, "losses": 0, "gf": 9, "ga": 2, "recent": [{"date": "2026-06-04", "opponent": "Serbia", "score": "5:1", "result": "W"}, {"date": "2026-05-30", "opponent": "Australia", "score": "1:0", "result": "W"}, {"date": "2026-05-22", "opponent": "Ghana", "score": "2:0", "result": "W"}, {"date": "2026-03-31", "opponent": "Belgium", "score": "1:1", "result": "D"}, {"date": "2026-03-28", "opponent": "Portugal", "score": "0:0", "result": "D"}]}, "stats2": {"games": 5, "wins": 3, "draws": 0, "losses": 2, "gf": 7, "ga": 5, "recent": [{"date": "2026-06-03", "opponent": "El Salvador", "score": "1:0", "result": "W"}, {"date": "2026-05-30", "opponent": "Trinidad and Tobago", "score": "5:0", "result": "W"}, {"date": "2026-03-31", "opponent": "Austria", "score": "0:1", "result": "L"}, {"date": "2026-03-28", "opponent": "Ivory Coast", "score": "0:4", "result": "L"}, {"date": "2025-11-18", "opponent": "Ghana", "score": "1:0", "result": "W"}]}, "h2h": {"games": 14, "team1Wins": 8, "team2Wins": 3, "draws": 3, "last": {"date": "2025-09-09", "home": "Mexico", "away": "South Korea", "score": "2:2", "tournament": "Friendly"}}, "firstResult1": "победа 2:0 против ЮАР", "firstResult2": "победа 2:1 против Чехии"}, {"id": 26, "group": "B", "date": "2026-06-18", "time": "22:00", "venue": "SoFi Stadium, Los Angeles", "team1": "Switzerland", "team2": "Bosnia & Herzegovina", "team1Ru": "Швейцария", "team2Ru": "Босния и Герцеговина", "flag1": "🇨🇭", "flag2": "🇧🇦", "flagCode1": "ch", "flagCode2": "ba", "odds": {"one": -170, "draw": 310, "two": 500}, "prob": {"one": 60.5, "draw": 23.4, "two": 16.0}, "stats1": {"games": 5, "wins": 1, "draws": 3, "losses": 1, "gf": 9, "ga": 7, "recent": [{"date": "2026-06-06", "opponent": "Australia", "score": "1:1", "result": "D"}, {"date": "2026-05-31", "opponent": "Jordan", "score": "4:1", "result": "W"}, {"date": "2026-03-31", "opponent": "Norway", "score": "0:0", "result": "D"}, {"date": "2026-03-27", "opponent": "Germany", "score": "3:4", "result": "L"}, {"date": "2025-11-18", "opponent": "Kosovo", "score": "1:1", "result": "D"}]}, "stats2": {"games": 5, "wins": 0, "draws": 5, "losses": 0, "gf": 4, "ga": 4, "recent": [{"date": "2026-06-06", "opponent": "Panama", "score": "1:1", "result": "D"}, {"date": "2026-05-29", "opponent": "North Macedonia", "score": "0:0", "result": "D"}, {"date": "2026-03-31", "opponent": "Italy", "score": "1:1", "result": "D"}, {"date": "2026-03-26", "opponent": "Wales", "score": "1:1", "result": "D"}, {"date": "2025-11-18", "opponent": "Austria", "score": "1:1", "result": "D"}]}, "h2h": {"games": 1, "team1Wins": 0, "team2Wins": 1, "draws": 0, "last": {"date": "2016-03-29", "home": "Switzerland", "away": "Bosnia and Herzegovina", "score": "0:2", "tournament": "Friendly"}}, "firstResult1": "ничья 1:1 с Катаром", "firstResult2": "ничья 1:1 с Канадой"}, {"id": 27, "group": "B", "date": "2026-06-19", "time": "01:00", "venue": "BC Place, Vancouver", "team1": "Canada", "team2": "Qatar", "team1Ru": "Канада", "team2Ru": "Катар", "flag1": "🇨🇦", "flag2": "🇶🇦", "flagCode1": "ca", "flagCode2": "qa", "odds": {"one": -300, "draw": 450, "two": 900}, "prob": {"one": 72.7, "draw": 17.6, "two": 9.7}, "stats1": {"games": 5, "wins": 2, "draws": 3, "losses": 0, "gf": 7, "ga": 3, "recent": [{"date": "2026-06-05", "opponent": "Republic of Ireland", "score": "1:1", "result": "D"}, {"date": "2026-06-01", "opponent": "Uzbekistan", "score": "2:0", "result": "W"}, {"date": "2026-03-31", "opponent": "Tunisia", "score": "0:0", "result": "D"}, {"date": "2026-03-28", "opponent": "Iceland", "score": "2:2", "result": "D"}, {"date": "2025-11-18", "opponent": "Venezuela", "score": "2:0", "result": "W"}]}, "stats2": {"games": 5, "wins": 0, "draws": 2, "losses": 3, "gf": 1, "ga": 6, "recent": [{"date": "2026-06-06", "opponent": "El Salvador", "score": "0:0", "result": "D"}, {"date": "2026-05-28", "opponent": "Republic of Ireland", "score": "0:1", "result": "L"}, {"date": "2025-12-07", "opponent": "Tunisia", "score": "0:3", "result": "L"}, {"date": "2025-12-04", "opponent": "Syria", "score": "1:1", "result": "D"}, {"date": "2025-12-01", "opponent": "Palestine", "score": "0:1", "result": "L"}]}, "h2h": {"games": 1, "team1Wins": 1, "team2Wins": 0, "draws": 0, "last": {"date": "2022-09-23", "home": "Canada", "away": "Qatar", "score": "2:0", "tournament": "Friendly"}}, "firstResult1": "ничья 1:1 с Боснией и Герцеговиной", "firstResult2": "ничья 1:1 со Швейцарией"}, {"id": 30, "group": "C", "date": "2026-06-20", "time": "01:00", "venue": "Gillette Stadium, Boston", "team1": "Scotland", "team2": "Morocco", "team1Ru": "Шотландия", "team2Ru": "Марокко", "flag1": "🏴", "flag2": "🇲🇦", "flagCode1": "gb-sct", "flagCode2": "ma", "odds": {"one": 310, "draw": 230, "two": 100}, "prob": {"one": 23.3, "draw": 28.9, "two": 47.8}, "stats1": {"games": 5, "wins": 3, "draws": 0, "losses": 2, "gf": 12, "ga": 5, "recent": [{"date": "2026-06-06", "opponent": "Bolivia", "score": "4:0", "result": "W"}, {"date": "2026-05-30", "opponent": "Curaçao", "score": "4:1", "result": "W"}, {"date": "2026-03-31", "opponent": "Ivory Coast", "score": "0:1", "result": "L"}, {"date": "2026-03-28", "opponent": "Japan", "score": "0:1", "result": "L"}, {"date": "2025-11-18", "opponent": "Denmark", "score": "4:2", "result": "W"}]}, "stats2": {"games": 5, "wins": 4, "draws": 1, "losses": 0, "gf": 15, "ga": 2, "recent": [{"date": "2026-06-02", "opponent": "Madagascar", "score": "4:0", "result": "W"}, {"date": "2026-05-26", "opponent": "Burundi", "score": "5:0", "result": "W"}, {"date": "2026-03-31", "opponent": "Paraguay", "score": "2:1", "result": "W"}, {"date": "2026-03-27", "opponent": "Ecuador", "score": "1:1", "result": "D"}, {"date": "2026-01-18", "opponent": "Senegal", "score": "3:0", "result": "W"}]}, "h2h": {"games": 1, "team1Wins": 0, "team2Wins": 1, "draws": 0, "last": {"date": "1998-06-23", "home": "Scotland", "away": "Morocco", "score": "0:3", "tournament": "FIFA World Cup"}}, "firstResult1": "победа 1:0 над Гаити", "firstResult2": "ничья 1:1 с Бразилией"}, {"id": 31, "group": "C", "date": "2026-06-20", "time": "03:30", "venue": "Lincoln Financial Field, Philadelphia", "team1": "Brazil", "team2": "Haiti", "team1Ru": "Бразилия", "team2Ru": "Гаити", "flag1": "🇧🇷", "flag2": "🇭🇹", "flagCode1": "br", "flagCode2": "ht", "odds": {"one": -1250, "draw": 1200, "two": 3000}, "prob": {"one": 89.5, "draw": 7.4, "two": 3.1}, "stats1": {"games": 5, "wins": 3, "draws": 1, "losses": 1, "gf": 13, "ga": 7, "recent": [{"date": "2026-06-06", "opponent": "Egypt", "score": "2:1", "result": "W"}, {"date": "2026-05-31", "opponent": "Panama", "score": "6:2", "result": "W"}, {"date": "2026-03-31", "opponent": "Croatia", "score": "3:1", "result": "W"}, {"date": "2026-03-26", "opponent": "France", "score": "1:2", "result": "L"}, {"date": "2025-11-18", "opponent": "Tunisia", "score": "1:1", "result": "D"}]}, "stats2": {"games": 5, "wins": 2, "draws": 1, "losses": 2, "gf": 8, "ga": 4, "recent": [{"date": "2026-06-05", "opponent": "Peru", "score": "1:2", "result": "L"}, {"date": "2026-06-02", "opponent": "New Zealand", "score": "4:0", "result": "W"}, {"date": "2026-03-31", "opponent": "Iceland", "score": "1:1", "result": "D"}, {"date": "2026-03-28", "opponent": "Tunisia", "score": "0:1", "result": "L"}, {"date": "2025-11-18", "opponent": "Nicaragua", "score": "2:0", "result": "W"}]}, "h2h": {"games": 3, "team1Wins": 3, "team2Wins": 0, "draws": 0, "last": {"date": "2016-06-08", "home": "Brazil", "away": "Haiti", "score": "7:1", "tournament": "Copa América"}}, "firstResult1": "ничья 1:1 с Марокко", "firstResult2": "поражение 0:1 от Шотландии"}, {"id": 29, "group": "D", "date": "2026-06-19", "time": "22:00", "venue": "Lumen Field, Seattle", "team1": "USA", "team2": "Australia", "team1Ru": "США", "team2Ru": "Австралия", "flag1": "🇺🇸", "flag2": "🇦🇺", "flagCode1": "us", "flagCode2": "au", "odds": {"one": -130, "draw": 295, "two": 390}, "prob": {"one": 55.3, "draw": 24.8, "two": 20.0}, "stats1": {"games": 5, "wins": 2, "draws": 0, "losses": 3, "gf": 11, "ga": 12, "recent": [{"date": "2026-06-06", "opponent": "Germany", "score": "1:2", "result": "L"}, {"date": "2026-05-31", "opponent": "Senegal", "score": "3:2", "result": "W"}, {"date": "2026-03-31", "opponent": "Portugal", "score": "0:2", "result": "L"}, {"date": "2026-03-28", "opponent": "Belgium", "score": "2:5", "result": "L"}, {"date": "2025-11-18", "opponent": "Uruguay", "score": "5:1", "result": "W"}]}, "stats2": {"games": 5, "wins": 2, "draws": 1, "losses": 2, "gf": 7, "ga": 6, "recent": [{"date": "2026-06-06", "opponent": "Switzerland", "score": "1:1", "result": "D"}, {"date": "2026-05-30", "opponent": "Mexico", "score": "0:1", "result": "L"}, {"date": "2026-03-31", "opponent": "Curaçao", "score": "5:1", "result": "W"}, {"date": "2026-03-27", "opponent": "Cameroon", "score": "1:0", "result": "W"}, {"date": "2025-11-18", "opponent": "Colombia", "score": "0:3", "result": "L"}]}, "h2h": {"games": 4, "team1Wins": 2, "team2Wins": 1, "draws": 1, "last": {"date": "2025-10-14", "home": "United States", "away": "Australia", "score": "2:1", "tournament": "Friendly"}}, "firstResult1": "победа 4:1 над Парагваем", "firstResult2": "победа 2:0 над Турцией"}, {"id": 32, "group": "D", "date": "2026-06-20", "time": "06:00", "venue": "Levi's Stadium, San Francisco Bay Area", "team1": "Turkey", "team2": "Paraguay", "team1Ru": "Турция", "team2Ru": "Парагвай", "flag1": "🇹🇷", "flag2": "🇵🇾", "flagCode1": "tr", "flagCode2": "py", "odds": {"one": 125, "draw": 220, "two": 245}, "prob": {"one": 42.5, "draw": 29.9, "two": 27.7}, "stats1": {"games": 5, "wins": 4, "draws": 1, "losses": 0, "gf": 10, "ga": 3, "recent": [{"date": "2026-06-06", "opponent": "Venezuela", "score": "2:1", "result": "W"}, {"date": "2026-06-01", "opponent": "North Macedonia", "score": "4:0", "result": "W"}, {"date": "2026-03-31", "opponent": "Kosovo", "score": "1:0", "result": "W"}, {"date": "2026-03-26", "opponent": "Romania", "score": "1:0", "result": "W"}, {"date": "2025-11-18", "opponent": "Spain", "score": "2:2", "result": "D"}]}, "stats2": {"games": 5, "wins": 3, "draws": 0, "losses": 2, "gf": 9, "ga": 5, "recent": [{"date": "2026-06-05", "opponent": "Nicaragua", "score": "4:0", "result": "W"}, {"date": "2026-03-31", "opponent": "Morocco", "score": "1:2", "result": "L"}, {"date": "2026-03-27", "opponent": "Greece", "score": "1:0", "result": "W"}, {"date": "2025-11-18", "opponent": "Mexico", "score": "2:1", "result": "W"}, {"date": "2025-11-15", "opponent": "United States", "score": "1:2", "result": "L"}]}, "h2h": {"games": 0, "team1Wins": 0, "team2Wins": 0, "draws": 0, "last": null}, "firstResult1": "поражение 0:2 от Австралии", "firstResult2": "поражение 1:4 от США"}, {"id": 34, "group": "E", "date": "2026-06-20", "time": "23:00", "venue": "BMO Field, Toronto", "team1": "Germany", "team2": "Ivory Coast", "team1Ru": "Германия", "team2Ru": "Кот-д’Ивуар", "flag1": "🇩🇪", "flag2": "🇨🇮", "flagCode1": "de", "flagCode2": "ci", "odds": {"one": -180, "draw": 340, "two": 500}, "prob": {"one": 62.0, "draw": 21.9, "two": 16.1}, "stats1": {"games": 5, "wins": 5, "draws": 0, "losses": 0, "gf": 18, "ga": 5, "recent": [{"date": "2026-06-06", "opponent": "United States", "score": "2:1", "result": "W"}, {"date": "2026-05-31", "opponent": "Finland", "score": "4:0", "result": "W"}, {"date": "2026-03-30", "opponent": "Ghana", "score": "2:1", "result": "W"}, {"date": "2026-03-27", "opponent": "Switzerland", "score": "4:3", "result": "W"}, {"date": "2025-11-17", "opponent": "Slovakia", "score": "6:0", "result": "W"}]}, "stats2": {"games": 5, "wins": 4, "draws": 0, "losses": 1, "gf": 12, "ga": 4, "recent": [{"date": "2026-06-04", "opponent": "France", "score": "2:1", "result": "W"}, {"date": "2026-03-31", "opponent": "Scotland", "score": "1:0", "result": "W"}, {"date": "2026-03-28", "opponent": "South Korea", "score": "4:0", "result": "W"}, {"date": "2026-01-10", "opponent": "Egypt", "score": "2:3", "result": "L"}, {"date": "2026-01-06", "opponent": "Burkina Faso", "score": "3:0", "result": "W"}]}, "h2h": {"games": 1, "team1Wins": 0, "team2Wins": 0, "draws": 1, "last": {"date": "2009-11-18", "home": "Germany", "away": "Ivory Coast", "score": "2:2", "tournament": "Friendly"}}, "firstResult1": "победа 7:1 над Кюрасао", "firstResult2": "победа 1:0 над Эквадором"}, {"id": 35, "group": "E", "date": "2026-06-21", "time": "03:00", "venue": "GEHA Field at Arrowhead Stadium, Kansas City", "team1": "Ecuador", "team2": "Curaçao", "team1Ru": "Эквадор", "team2Ru": "Кюрасао", "flag1": "🇪🇨", "flag2": "🇨🇼", "flagCode1": "ec", "flagCode2": "cw", "odds": {"one": -475, "draw": 600, "two": 1400}, "prob": {"one": 79.8, "draw": 13.8, "two": 6.4}, "stats1": {"games": 5, "wins": 2, "draws": 3, "losses": 0, "gf": 6, "ga": 3, "recent": [{"date": "2026-05-30", "opponent": "Saudi Arabia", "score": "2:1", "result": "W"}, {"date": "2026-03-31", "opponent": "Netherlands", "score": "1:1", "result": "D"}, {"date": "2026-03-27", "opponent": "Morocco", "score": "1:1", "result": "D"}, {"date": "2025-11-18", "opponent": "New Zealand", "score": "2:0", "result": "W"}, {"date": "2025-11-13", "opponent": "Canada", "score": "0:0", "result": "D"}]}, "stats2": {"games": 5, "wins": 1, "draws": 1, "losses": 3, "gf": 6, "ga": 11, "recent": [{"date": "2026-06-06", "opponent": "Aruba", "score": "4:0", "result": "W"}, {"date": "2026-05-30", "opponent": "Scotland", "score": "1:4", "result": "L"}, {"date": "2026-03-31", "opponent": "Australia", "score": "1:5", "result": "L"}, {"date": "2026-03-27", "opponent": "China", "score": "0:2", "result": "L"}, {"date": "2025-11-18", "opponent": "Jamaica", "score": "0:0", "result": "D"}]}, "h2h": {"games": 0, "team1Wins": 0, "team2Wins": 0, "draws": 0, "last": null}, "firstResult1": "поражение 0:1 от Кот-д’Ивуара", "firstResult2": "поражение 1:7 от Германии"}, {"id": 33, "group": "F", "date": "2026-06-20", "time": "20:00", "venue": "NRG Stadium, Houston", "team1": "Netherlands", "team2": "Sweden", "team1Ru": "Нидерланды", "team2Ru": "Швеция", "flag1": "🇳🇱", "flag2": "🇸🇪", "flagCode1": "nl", "flagCode2": "se", "odds": {"one": -155, "draw": 310, "two": 425}, "prob": {"one": 58.3, "draw": 23.4, "two": 18.3}, "stats1": {"games": 5, "wins": 2, "draws": 2, "losses": 1, "gf": 8, "ga": 4, "recent": [{"date": "2026-06-03", "opponent": "Algeria", "score": "0:1", "result": "L"}, {"date": "2026-03-31", "opponent": "Ecuador", "score": "1:1", "result": "D"}, {"date": "2026-03-27", "opponent": "Norway", "score": "2:1", "result": "W"}, {"date": "2025-11-17", "opponent": "Lithuania", "score": "4:0", "result": "W"}, {"date": "2025-11-14", "opponent": "Poland", "score": "1:1", "result": "D"}]}, "stats2": {"games": 5, "wins": 2, "draws": 2, "losses": 1, "gf": 10, "ga": 9, "recent": [{"date": "2026-06-04", "opponent": "Greece", "score": "2:2", "result": "D"}, {"date": "2026-06-01", "opponent": "Norway", "score": "1:3", "result": "L"}, {"date": "2026-03-31", "opponent": "Poland", "score": "3:2", "result": "W"}, {"date": "2026-03-26", "opponent": "Ukraine", "score": "3:1", "result": "W"}, {"date": "2025-11-18", "opponent": "Slovenia", "score": "1:1", "result": "D"}]}, "h2h": {"games": 25, "team1Wins": 11, "team2Wins": 8, "draws": 6, "last": {"date": "2017-10-10", "home": "Netherlands", "away": "Sweden", "score": "2:0", "tournament": "FIFA World Cup qualification"}}, "firstResult1": "ничья 2:2 с Японией", "firstResult2": "победа 5:1 над Тунисом"}, {"id": 36, "group": "F", "date": "2026-06-21", "time": "07:00", "venue": "Estadio BBVA, Monterrey", "team1": "Tunisia", "team2": "Japan", "team1Ru": "Тунис", "team2Ru": "Япония", "flag1": "🇹🇳", "flag2": "🇯🇵", "flagCode1": "tn", "flagCode2": "jp", "odds": {"one": 370, "draw": 250, "two": -125}, "prob": {"one": 20.2, "draw": 27.1, "two": 52.7}, "stats1": {"games": 5, "wins": 1, "draws": 2, "losses": 2, "gf": 2, "ga": 7, "recent": [{"date": "2026-06-06", "opponent": "Belgium", "score": "0:5", "result": "L"}, {"date": "2026-06-01", "opponent": "Austria", "score": "0:1", "result": "L"}, {"date": "2026-03-31", "opponent": "Canada", "score": "0:0", "result": "D"}, {"date": "2026-03-28", "opponent": "Haiti", "score": "1:0", "result": "W"}, {"date": "2026-01-03", "opponent": "Mali", "score": "1:1", "result": "D"}]}, "stats2": {"games": 5, "wins": 5, "draws": 0, "losses": 0, "gf": 8, "ga": 0, "recent": [{"date": "2026-05-31", "opponent": "Iceland", "score": "1:0", "result": "W"}, {"date": "2026-03-31", "opponent": "England", "score": "1:0", "result": "W"}, {"date": "2026-03-28", "opponent": "Scotland", "score": "1:0", "result": "W"}, {"date": "2025-11-18", "opponent": "Bolivia", "score": "3:0", "result": "W"}, {"date": "2025-11-14", "opponent": "Ghana", "score": "2:0", "result": "W"}]}, "h2h": {"games": 5, "team1Wins": 1, "team2Wins": 4, "draws": 0, "last": {"date": "2022-06-14", "home": "Japan", "away": "Tunisia", "score": "0:3", "tournament": "Kirin Cup"}}, "firstResult1": "поражение 1:5 от Швеции", "firstResult2": "ничья 2:2 с Нидерландами"}, {"id": 38, "group": "G", "date": "2026-06-21", "time": "22:00", "venue": "SoFi Stadium, Los Angeles", "team1": "Belgium", "team2": "Iran", "team1Ru": "Бельгия", "team2Ru": "Иран", "flag1": "🇧🇪", "flag2": "🇮🇷", "flagCode1": "be", "flagCode2": "ir", "odds": {"one": -245, "draw": 380, "two": 700}, "prob": {"one": 68.1, "draw": 20.0, "two": 12.0}, "stats1": {"games": 5, "wins": 4, "draws": 1, "losses": 0, "gf": 20, "ga": 3, "recent": [{"date": "2026-06-06", "opponent": "Tunisia", "score": "5:0", "result": "W"}, {"date": "2026-06-02", "opponent": "Croatia", "score": "2:0", "result": "W"}, {"date": "2026-03-31", "opponent": "Mexico", "score": "1:1", "result": "D"}, {"date": "2026-03-28", "opponent": "United States", "score": "5:2", "result": "W"}, {"date": "2025-11-18", "opponent": "Liechtenstein", "score": "7:0", "result": "W"}]}, "stats2": {"games": 5, "wins": 3, "draws": 1, "losses": 1, "gf": 11, "ga": 3, "recent": [{"date": "2026-06-04", "opponent": "Mali", "score": "2:0", "result": "W"}, {"date": "2026-05-29", "opponent": "Gambia", "score": "3:1", "result": "W"}, {"date": "2026-03-31", "opponent": "Costa Rica", "score": "5:0", "result": "W"}, {"date": "2026-03-27", "opponent": "Nigeria", "score": "1:2", "result": "L"}, {"date": "2025-11-18", "opponent": "Uzbekistan", "score": "0:0", "result": "D"}]}, "h2h": {"games": 0, "team1Wins": 0, "team2Wins": 0, "draws": 0, "last": null}, "firstResult1": "ничья 1:1 с Египтом", "firstResult2": "ничья 2:2 с Новой Зеландией"}, {"id": 40, "group": "G", "date": "2026-06-22", "time": "04:00", "venue": "BC Place, Vancouver", "team1": "New Zealand", "team2": "Egypt", "team1Ru": "Новая Зеландия", "team2Ru": "Египет", "flag1": "🇳🇿", "flag2": "🇪🇬", "flagCode1": "nz", "flagCode2": "eg", "odds": {"one": 420, "draw": 285, "two": -135}, "prob": {"one": 18.7, "draw": 25.3, "two": 56.0}, "stats1": {"games": 5, "wins": 1, "draws": 0, "losses": 4, "gf": 4, "ga": 10, "recent": [{"date": "2026-06-06", "opponent": "England", "score": "0:1", "result": "L"}, {"date": "2026-06-02", "opponent": "Haiti", "score": "0:4", "result": "L"}, {"date": "2026-03-30", "opponent": "Chile", "score": "4:1", "result": "W"}, {"date": "2026-03-27", "opponent": "Finland", "score": "0:2", "result": "L"}, {"date": "2025-11-18", "opponent": "Ecuador", "score": "0:2", "result": "L"}]}, "stats2": {"games": 5, "wins": 2, "draws": 2, "losses": 1, "gf": 6, "ga": 2, "recent": [{"date": "2026-06-06", "opponent": "Brazil", "score": "1:2", "result": "L"}, {"date": "2026-05-28", "opponent": "Russia", "score": "1:0", "result": "W"}, {"date": "2026-03-31", "opponent": "Spain", "score": "0:0", "result": "D"}, {"date": "2026-03-27", "opponent": "Saudi Arabia", "score": "4:0", "result": "W"}, {"date": "2026-01-17", "opponent": "Nigeria", "score": "0:0", "result": "D"}]}, "h2h": {"games": 3, "team1Wins": 0, "team2Wins": 2, "draws": 1, "last": {"date": "2024-03-22", "home": "Egypt", "away": "New Zealand", "score": "1:0", "tournament": "FIFA Series"}}, "firstResult1": "ничья 2:2 с Ираном", "firstResult2": "ничья 1:1 с Бельгией"}, {"id": 37, "group": "H", "date": "2026-06-21", "time": "19:00", "venue": "Mercedes-Benz Stadium, Atlanta", "team1": "Spain", "team2": "Saudi Arabia", "team1Ru": "Испания", "team2Ru": "Саудовская Аравия", "flag1": "🇪🇸", "flag2": "🇸🇦", "flagCode1": "es", "flagCode2": "sa", "odds": {"one": -900, "draw": 900, "two": 2700}, "prob": {"one": 86.9, "draw": 9.7, "two": 3.4}, "stats1": {"games": 5, "wins": 2, "draws": 3, "losses": 0, "gf": 10, "ga": 3, "recent": [{"date": "2026-06-04", "opponent": "Iraq", "score": "1:1", "result": "D"}, {"date": "2026-03-31", "opponent": "Egypt", "score": "0:0", "result": "D"}, {"date": "2026-03-27", "opponent": "Serbia", "score": "3:0", "result": "W"}, {"date": "2025-11-18", "opponent": "Turkey", "score": "2:2", "result": "D"}, {"date": "2025-11-15", "opponent": "Georgia", "score": "4:0", "result": "W"}]}, "stats2": {"games": 5, "wins": 1, "draws": 0, "losses": 4, "gf": 5, "ga": 9, "recent": [{"date": "2026-06-05", "opponent": "Puerto Rico", "score": "3:0", "result": "W"}, {"date": "2026-05-30", "opponent": "Ecuador", "score": "1:2", "result": "L"}, {"date": "2026-03-31", "opponent": "Serbia", "score": "1:2", "result": "L"}, {"date": "2026-03-27", "opponent": "Egypt", "score": "0:4", "result": "L"}, {"date": "2025-12-15", "opponent": "Jordan", "score": "0:1", "result": "L"}]}, "h2h": {"games": 3, "team1Wins": 3, "team2Wins": 0, "draws": 0, "last": {"date": "2012-09-07", "home": "Spain", "away": "Saudi Arabia", "score": "5:0", "tournament": "Friendly"}}, "firstResult1": "ничья 0:0 с Кабо-Верде", "firstResult2": "ничья 1:1 с Уругваем"}, {"id": 39, "group": "H", "date": "2026-06-22", "time": "01:00", "venue": "Hard Rock Stadium, Miami", "team1": "Uruguay", "team2": "Cape Verde", "team1Ru": "Уругвай", "team2Ru": "Кабо-Верде", "flag1": "🇺🇾", "flag2": "🇨🇻", "flagCode1": "uy", "flagCode2": "cv", "odds": {"one": -225, "draw": 360, "two": 650}, "prob": {"one": 66.4, "draw": 20.8, "two": 12.8}, "stats1": {"games": 5, "wins": 1, "draws": 3, "losses": 1, "gf": 4, "ga": 7, "recent": [{"date": "2026-03-31", "opponent": "Algeria", "score": "0:0", "result": "D"}, {"date": "2026-03-27", "opponent": "England", "score": "1:1", "result": "D"}, {"date": "2025-11-18", "opponent": "United States", "score": "1:5", "result": "L"}, {"date": "2025-11-15", "opponent": "Mexico", "score": "0:0", "result": "D"}, {"date": "2025-10-13", "opponent": "Uzbekistan", "score": "2:1", "result": "W"}]}, "stats2": {"games": 5, "wins": 1, "draws": 2, "losses": 2, "gf": 7, "ga": 9, "recent": [{"date": "2026-06-06", "opponent": "Bermuda", "score": "0:3", "result": "L"}, {"date": "2026-05-31", "opponent": "Serbia", "score": "3:0", "result": "W"}, {"date": "2026-03-30", "opponent": "Finland", "score": "1:1", "result": "D"}, {"date": "2026-03-27", "opponent": "Chile", "score": "2:4", "result": "L"}, {"date": "2025-11-17", "opponent": "Egypt", "score": "1:1", "result": "D"}]}, "h2h": {"games": 0, "team1Wins": 0, "team2Wins": 0, "draws": 0, "last": null}, "firstResult1": "ничья 1:1 с Саудовской Аравией", "firstResult2": "ничья 0:0 с Испанией"}, {"id": 42, "group": "I", "date": "2026-06-23", "time": "00:00", "venue": "Lincoln Financial Field, Philadelphia", "team1": "France", "team2": "Iraq", "team1Ru": "Франция", "team2Ru": "Ирак", "flag1": "🇫🇷", "flag2": "🇮🇶", "flagCode1": "fr", "flagCode2": "iq", "odds": {"one": -750, "draw": 700, "two": 2200}, "prob": {"one": 84.0, "draw": 11.9, "two": 4.1}, "stats1": {"games": 5, "wins": 4, "draws": 0, "losses": 1, "gf": 13, "ga": 5, "recent": [{"date": "2026-06-04", "opponent": "Ivory Coast", "score": "1:2", "result": "L"}, {"date": "2026-03-29", "opponent": "Colombia", "score": "3:1", "result": "W"}, {"date": "2026-03-26", "opponent": "Brazil", "score": "2:1", "result": "W"}, {"date": "2025-11-16", "opponent": "Azerbaijan", "score": "3:1", "result": "W"}, {"date": "2025-11-13", "opponent": "Ukraine", "score": "4:0", "result": "W"}]}, "stats2": {"games": 5, "wins": 2, "draws": 1, "losses": 2, "gf": 4, "ga": 5, "recent": [{"date": "2026-06-04", "opponent": "Spain", "score": "1:1", "result": "D"}, {"date": "2026-05-29", "opponent": "Andorra", "score": "1:0", "result": "W"}, {"date": "2026-03-31", "opponent": "Bolivia", "score": "2:1", "result": "W"}, {"date": "2025-12-12", "opponent": "Jordan", "score": "0:1", "result": "L"}, {"date": "2025-12-09", "opponent": "Algeria", "score": "0:2", "result": "L"}]}, "h2h": {"games": 0, "team1Wins": 0, "team2Wins": 0, "draws": 0, "last": null}, "firstResult1": "победа 3:1 над Сенегалом", "firstResult2": "поражение 1:4 от Норвегии"}, {"id": 43, "group": "I", "date": "2026-06-23", "time": "03:00", "venue": "MetLife Stadium, New York/New Jersey", "team1": "Norway", "team2": "Senegal", "team1Ru": "Норвегия", "team2Ru": "Сенегал", "flag1": "🇳🇴", "flag2": "🇸🇳", "flagCode1": "no", "flagCode2": "sn", "odds": {"one": 110, "draw": 255, "two": 250}, "prob": {"one": 45.6, "draw": 27.0, "two": 27.4}, "stats1": {"games": 5, "wins": 3, "draws": 1, "losses": 1, "gf": 12, "ga": 5, "recent": [{"date": "2026-06-01", "opponent": "Sweden", "score": "3:1", "result": "W"}, {"date": "2026-03-31", "opponent": "Switzerland", "score": "0:0", "result": "D"}, {"date": "2026-03-27", "opponent": "Netherlands", "score": "1:2", "result": "L"}, {"date": "2025-11-16", "opponent": "Italy", "score": "4:1", "result": "W"}, {"date": "2025-11-13", "opponent": "Estonia", "score": "4:1", "result": "W"}]}, "stats2": {"games": 5, "wins": 3, "draws": 0, "losses": 2, "gf": 8, "ga": 7, "recent": [{"date": "2026-05-31", "opponent": "United States", "score": "2:3", "result": "L"}, {"date": "2026-03-31", "opponent": "Gambia", "score": "3:1", "result": "W"}, {"date": "2026-03-28", "opponent": "Peru", "score": "2:0", "result": "W"}, {"date": "2026-01-18", "opponent": "Morocco", "score": "0:3", "result": "L"}, {"date": "2026-01-14", "opponent": "Egypt", "score": "1:0", "result": "W"}]}, "h2h": {"games": 1, "team1Wins": 0, "team2Wins": 1, "draws": 0, "last": {"date": "2006-03-01", "home": "Senegal", "away": "Norway", "score": "2:1", "tournament": "Friendly"}}, "firstResult1": "победа 4:1 над Ираком", "firstResult2": "поражение 1:3 от Франции"}, {"id": 41, "group": "J", "date": "2026-06-22", "time": "20:00", "venue": "AT&T Stadium, Dallas", "team1": "Argentina", "team2": "Austria", "team1Ru": "Аргентина", "team2Ru": "Австрия", "flag1": "🇦🇷", "flag2": "🇦🇹", "flagCode1": "ar", "flagCode2": "at", "odds": {"one": -155, "draw": 290, "two": 460}, "prob": {"one": 58.3, "draw": 24.6, "two": 17.1}, "stats1": {"games": 5, "wins": 5, "draws": 0, "losses": 0, "gf": 17, "ga": 1, "recent": [{"date": "2026-06-06", "opponent": "Honduras", "score": "2:0", "result": "W"}, {"date": "2026-03-31", "opponent": "Zambia", "score": "5:0", "result": "W"}, {"date": "2026-03-27", "opponent": "Mauritania", "score": "2:1", "result": "W"}, {"date": "2025-11-14", "opponent": "Angola", "score": "2:0", "result": "W"}, {"date": "2025-10-14", "opponent": "Puerto Rico", "score": "6:0", "result": "W"}]}, "stats2": {"games": 5, "wins": 4, "draws": 1, "losses": 0, "gf": 10, "ga": 2, "recent": [{"date": "2026-06-01", "opponent": "Tunisia", "score": "1:0", "result": "W"}, {"date": "2026-03-31", "opponent": "South Korea", "score": "1:0", "result": "W"}, {"date": "2026-03-27", "opponent": "Ghana", "score": "5:1", "result": "W"}, {"date": "2025-11-18", "opponent": "Bosnia and Herzegovina", "score": "1:1", "result": "D"}, {"date": "2025-11-15", "opponent": "Cyprus", "score": "2:0", "result": "W"}]}, "h2h": {"games": 2, "team1Wins": 1, "team2Wins": 0, "draws": 1, "last": {"date": "1990-05-03", "home": "Austria", "away": "Argentina", "score": "1:1", "tournament": "Friendly"}}, "firstResult1": "победа 3:0 над Алжиром", "firstResult2": "победа 3:1 над Иорданией"}, {"id": 44, "group": "J", "date": "2026-06-23", "time": "06:00", "venue": "Levi's Stadium, San Francisco Bay Area", "team1": "Jordan", "team2": "Algeria", "team1Ru": "Иордания", "team2Ru": "Алжир", "flag1": "🇯🇴", "flag2": "🇩🇿", "flagCode1": "jo", "flagCode2": "dz", "odds": {"one": 500, "draw": 320, "two": -175}, "prob": {"one": 16.0, "draw": 22.9, "two": 61.1}, "stats1": {"games": 5, "wins": 1, "draws": 2, "losses": 2, "gf": 8, "ga": 11, "recent": [{"date": "2026-05-31", "opponent": "Switzerland", "score": "1:4", "result": "L"}, {"date": "2026-03-31", "opponent": "Nigeria", "score": "2:2", "result": "D"}, {"date": "2026-03-27", "opponent": "Costa Rica", "score": "2:2", "result": "D"}, {"date": "2025-12-18", "opponent": "Morocco", "score": "2:3", "result": "L"}, {"date": "2025-12-15", "opponent": "Saudi Arabia", "score": "1:0", "result": "W"}]}, "stats2": {"games": 5, "wins": 3, "draws": 1, "losses": 1, "gf": 9, "ga": 2, "recent": [{"date": "2026-06-03", "opponent": "Netherlands", "score": "1:0", "result": "W"}, {"date": "2026-03-31", "opponent": "Uruguay", "score": "0:0", "result": "D"}, {"date": "2026-03-27", "opponent": "Guatemala", "score": "7:0", "result": "W"}, {"date": "2026-01-10", "opponent": "Nigeria", "score": "0:2", "result": "L"}, {"date": "2026-01-06", "opponent": "DR Congo", "score": "1:0", "result": "W"}]}, "h2h": {"games": 2, "team1Wins": 0, "team2Wins": 1, "draws": 1, "last": {"date": "2004-05-30", "home": "Algeria", "away": "Jordan", "score": "1:1", "tournament": "Friendly"}}, "firstResult1": "поражение 1:3 от Австрии", "firstResult2": "поражение 0:3 от Аргентины"}, {"id": 45, "group": "K", "date": "2026-06-23", "time": "20:00", "venue": "NRG Stadium, Houston", "team1": "Portugal", "team2": "Uzbekistan", "team1Ru": "Португалия", "team2Ru": "Узбекистан", "flag1": "🇵🇹", "flag2": "🇺🇿", "flagCode1": "pt", "flagCode2": "uz", "odds": {"one": -390, "draw": 550, "two": 1000}, "prob": {"one": 76.5, "draw": 14.8, "two": 8.7}, "stats1": {"games": 5, "wins": 3, "draws": 1, "losses": 1, "gf": 13, "ga": 4, "recent": [{"date": "2026-06-06", "opponent": "Chile", "score": "2:1", "result": "W"}, {"date": "2026-03-31", "opponent": "United States", "score": "2:0", "result": "W"}, {"date": "2026-03-28", "opponent": "Mexico", "score": "0:0", "result": "D"}, {"date": "2025-11-16", "opponent": "Armenia", "score": "9:1", "result": "W"}, {"date": "2025-11-13", "opponent": "Republic of Ireland", "score": "0:2", "result": "L"}]}, "stats2": {"games": 5, "wins": 1, "draws": 3, "losses": 1, "gf": 5, "ga": 5, "recent": [{"date": "2026-06-01", "opponent": "Canada", "score": "0:2", "result": "L"}, {"date": "2026-03-30", "opponent": "Venezuela", "score": "0:0", "result": "D"}, {"date": "2026-03-27", "opponent": "Gabon", "score": "3:1", "result": "W"}, {"date": "2026-01-26", "opponent": "China", "score": "2:2", "result": "D"}, {"date": "2025-11-18", "opponent": "Iran", "score": "0:0", "result": "D"}]}, "h2h": {"games": 0, "team1Wins": 0, "team2Wins": 0, "draws": 0, "last": null}, "firstResult1": "ничья 1:1 с ДР Конго", "firstResult2": "ещё не сыграли первый матч"}, {"id": 48, "group": "K", "date": "2026-06-24", "time": "05:00", "venue": "Estadio Akron, Guadalajara", "team1": "Colombia", "team2": "DR Congo", "team1Ru": "Колумбия", "team2Ru": "ДР Конго", "flag1": "🇨🇴", "flag2": "🇨🇩", "flagCode1": "co", "flagCode2": "cd", "odds": {"one": -205, "draw": 320, "two": 650}, "prob": {"one": 64.4, "draw": 22.8, "two": 12.8}, "stats1": {"games": 5, "wins": 3, "draws": 0, "losses": 2, "gf": 10, "ga": 7, "recent": [{"date": "2026-06-01", "opponent": "Costa Rica", "score": "3:1", "result": "W"}, {"date": "2026-03-29", "opponent": "France", "score": "1:3", "result": "L"}, {"date": "2026-03-26", "opponent": "Croatia", "score": "1:2", "result": "L"}, {"date": "2025-11-18", "opponent": "Australia", "score": "3:0", "result": "W"}, {"date": "2025-11-15", "opponent": "New Zealand", "score": "2:1", "result": "W"}]}, "stats2": {"games": 5, "wins": 3, "draws": 1, "losses": 1, "gf": 6, "ga": 1, "recent": [{"date": "2026-06-03", "opponent": "Denmark", "score": "0:0", "result": "D"}, {"date": "2026-03-31", "opponent": "Jamaica", "score": "1:0", "result": "W"}, {"date": "2026-03-25", "opponent": "Bermuda", "score": "2:0", "result": "W"}, {"date": "2026-01-06", "opponent": "Algeria", "score": "0:1", "result": "L"}, {"date": "2025-12-30", "opponent": "Botswana", "score": "3:0", "result": "W"}]}, "h2h": {"games": 0, "team1Wins": 0, "team2Wins": 0, "draws": 0, "last": null}, "firstResult1": "ещё не сыграли первый матч", "firstResult2": "ничья 1:1 с Португалией"}, {"id": 46, "group": "L", "date": "2026-06-23", "time": "23:00", "venue": "Gillette Stadium, Boston", "team1": "England", "team2": "Ghana", "team1Ru": "Англия", "team2Ru": "Гана", "flag1": "🏴", "flag2": "🇬🇭", "flagCode1": "gb-eng", "flagCode2": "gh", "odds": {"one": -300, "draw": 450, "two": 850}, "prob": {"one": 72.3, "draw": 17.5, "two": 10.1}, "stats1": {"games": 5, "wins": 3, "draws": 1, "losses": 1, "gf": 6, "ga": 2, "recent": [{"date": "2026-06-06", "opponent": "New Zealand", "score": "1:0", "result": "W"}, {"date": "2026-03-31", "opponent": "Japan", "score": "0:1", "result": "L"}, {"date": "2026-03-27", "opponent": "Uruguay", "score": "1:1", "result": "D"}, {"date": "2025-11-16", "opponent": "Albania", "score": "2:0", "result": "W"}, {"date": "2025-11-13", "opponent": "Serbia", "score": "2:0", "result": "W"}]}, "stats2": {"games": 5, "wins": 0, "draws": 1, "losses": 4, "gf": 3, "ga": 11, "recent": [{"date": "2026-06-02", "opponent": "Wales", "score": "1:1", "result": "D"}, {"date": "2026-05-22", "opponent": "Mexico", "score": "0:2", "result": "L"}, {"date": "2026-03-30", "opponent": "Germany", "score": "1:2", "result": "L"}, {"date": "2026-03-27", "opponent": "Austria", "score": "1:5", "result": "L"}, {"date": "2025-11-18", "opponent": "South Korea", "score": "0:1", "result": "L"}]}, "h2h": {"games": 1, "team1Wins": 0, "team2Wins": 0, "draws": 1, "last": {"date": "2011-03-29", "home": "England", "away": "Ghana", "score": "1:1", "tournament": "Friendly"}}, "firstResult1": "ещё не сыграли первый матч", "firstResult2": "ещё не сыграли первый матч"}, {"id": 47, "group": "L", "date": "2026-06-24", "time": "02:00", "venue": "BMO Field, Toronto", "team1": "Panama", "team2": "Croatia", "team1Ru": "Панама", "team2Ru": "Хорватия", "flag1": "🇵🇦", "flag2": "🇭🇷", "flagCode1": "pa", "flagCode2": "hr", "odds": {"one": 600, "draw": 330, "two": -200}, "prob": {"one": 13.7, "draw": 22.3, "two": 64.0}, "stats1": {"games": 5, "wins": 2, "draws": 2, "losses": 1, "gf": 10, "ga": 11, "recent": [{"date": "2026-06-06", "opponent": "Bosnia and Herzegovina", "score": "1:1", "result": "D"}, {"date": "2026-06-03", "opponent": "Dominican Republic", "score": "4:2", "result": "W"}, {"date": "2026-05-31", "opponent": "Brazil", "score": "2:6", "result": "L"}, {"date": "2026-03-31", "opponent": "South Africa", "score": "2:1", "result": "W"}, {"date": "2026-03-27", "opponent": "South Africa", "score": "1:1", "result": "D"}]}, "stats2": {"games": 5, "wins": 3, "draws": 0, "losses": 2, "gf": 9, "ga": 9, "recent": [{"date": "2026-06-02", "opponent": "Belgium", "score": "0:2", "result": "L"}, {"date": "2026-03-31", "opponent": "Brazil", "score": "1:3", "result": "L"}, {"date": "2026-03-26", "opponent": "Colombia", "score": "2:1", "result": "W"}, {"date": "2025-11-17", "opponent": "Montenegro", "score": "3:2", "result": "W"}, {"date": "2025-11-14", "opponent": "Faroe Islands", "score": "3:1", "result": "W"}]}, "h2h": {"games": 0, "team1Wins": 0, "team2Wins": 0, "draws": 0, "last": null}, "firstResult1": "ещё не сыграли первый матч", "firstResult2": "ещё не сыграли первый матч"}]}</script>
+  <script id="data" type="application/json">{"generated": "2026-06-23", "round": "third-group-match", "notes": "Group K and L second-match results should be refreshed after all June 23 matches are final.", "matches": [{"id": 54, "group": "A", "date": "25/6", "time": "04:00", "team1": "South Korea", "team2": "South Africa", "team1Ru": "Южная Корея", "team2Ru": "ЮАР", "flagCode1": "kr", "flagCode2": "za", "need1": "Победа почти точно выводит дальше. Ничья может хватить, если Чехия не победит Мексику.", "need2": "Нужна победа. Ничья почти не помогает.", "scores1": ["Победа 2:1 над Чехией", "Поражение 0:1 от Мексики"], "scores2": ["Поражение 0:2 от Мексики", "Ничья 1:1 с Чехией"], "chance": {"one": "вероятно", "draw": "может быть", "two": "маловероятно"}}, {"id": 53, "group": "A", "date": "25/6", "time": "04:00", "team1": "Mexico", "team2": "Czechia", "team1Ru": "Мексика", "team2Ru": "Чехия", "flagCode1": "mx", "flagCode2": "cz", "need1": "Уже вышли дальше. Играют спокойно, чтобы закончить группу красиво.", "need2": "Нужна победа и помощь в другом матче.", "scores1": ["Победа 2:0 над ЮАР", "Победа 1:0 над Южной Кореей"], "scores2": ["Поражение 1:2 от Южной Кореи", "Ничья 1:1 с ЮАР"], "chance": {"one": "вероятно", "draw": "может быть", "two": "маловероятно"}}, {"id": 49, "group": "B", "date": "24/6", "time": "22:00", "team1": "Canada", "team2": "Switzerland", "team1Ru": "Канада", "team2Ru": "Швейцария", "flagCode1": "ca", "flagCode2": "ch", "need1": "Почти уже дальше. Победа даст первое место, ничья тоже очень хороша.", "need2": "Почти уже дальше. Победа даст первое место.", "scores1": ["Ничья 1:1 с Боснией", "Победа 6:0 над Катаром"], "scores2": ["Ничья 1:1 с Катаром", "Победа 4:1 над Боснией"], "chance": {"one": "может быть", "draw": "может быть", "two": "может быть"}}, {"id": 50, "group": "B", "date": "24/6", "time": "22:00", "team1": "Qatar", "team2": "Bosnia and Herzegovina", "team1Ru": "Катар", "team2Ru": "Босния", "flagCode1": "qa", "flagCode2": "ba", "need1": "Нужна победа и немного удачи.", "need2": "Нужна победа и много голов, чтобы ещё надеяться.", "scores1": ["Ничья 1:1 со Швейцарией", "Поражение 0:6 от Канады"], "scores2": ["Ничья 1:1 с Канадой", "Поражение 1:4 от Швейцарии"], "chance": {"one": "маловероятно", "draw": "может быть", "two": "вероятно"}}, {"id": 51, "group": "C", "date": "25/6", "time": "01:00", "team1": "Brazil", "team2": "Scotland", "team1Ru": "Бразилия", "team2Ru": "Шотландия", "flagCode1": "br", "flagCode2": "gb-sct", "need1": "Ничья почти точно хватает. Победа даст хорошее первое место.", "need2": "Очень нужен хотя бы один балл. Победа была бы огромной радостью.", "scores1": ["Ничья 1:1 с Марокко", "Победа 3:0 над Гаити"], "scores2": ["Победа 1:0 над Гаити", "Поражение 0:1 от Марокко"], "chance": {"one": "очень вероятно", "draw": "может быть", "two": "маловероятно"}}, {"id": 52, "group": "C", "date": "25/6", "time": "01:00", "team1": "Haiti", "team2": "Morocco", "team1Ru": "Гаити", "team2Ru": "Марокко", "flagCode1": "ht", "flagCode2": "ma", "need1": "Нужно чудо: победа и помощь. Но можно забить первый гол и порадоваться.", "need2": "Победа выводит дальше. Ничья тоже может хватить.", "scores1": ["Поражение 0:1 от Шотландии", "Поражение 0:3 от Бразилии"], "scores2": ["Ничья 1:1 с Бразилией", "Победа 1:0 над Шотландией"], "chance": {"one": "очень маловероятно", "draw": "маловероятно", "two": "очень вероятно"}}, {"id": 60, "group": "D", "date": "26/6", "time": "05:00", "team1": "Australia", "team2": "Paraguay", "team1Ru": "Австралия", "team2Ru": "Парагвай", "flagCode1": "au", "flagCode2": "py", "need1": "Ничья может хватить. Победа точно выводит дальше.", "need2": "Победа почти нужна. Ничья оставит надежду, но будет нервно.", "scores1": ["Победа 2:0 над Турцией", "Поражение 0:2 от США"], "scores2": ["Поражение 1:4 от США", "Победа 1:0 над Турцией"], "chance": {"one": "может быть", "draw": "может быть", "two": "может быть"}}, {"id": 59, "group": "D", "date": "26/6", "time": "05:00", "team1": "USA", "team2": "Turkiye", "team1Ru": "США", "team2Ru": "Турция", "flagCode1": "us", "flagCode2": "tr", "need1": "Уже первое место. Можно играть спокойно.", "need2": "Нужна победа, чтобы не закончить без очков.", "scores1": ["Победа 4:1 над Парагваем", "Победа 2:0 над Австралией"], "scores2": ["Поражение 0:2 от Австралии", "Поражение 0:1 от Парагвая"], "chance": {"one": "вероятно", "draw": "может быть", "two": "маловероятно"}}, {"id": 56, "group": "E", "date": "25/6", "time": "23:00", "team1": "Germany", "team2": "Ecuador", "team1Ru": "Германия", "team2Ru": "Эквадор", "flagCode1": "de", "flagCode2": "ec", "need1": "Уже вышли дальше и выиграли группу. Можно играть спокойно.", "need2": "Нужна большая игра. Лучше победа, ничья может быть мало.", "scores1": ["Победа 7:1 над Кюрасао", "Победа 2:1 над Кот-д’Ивуаром"], "scores2": ["Поражение 0:1 от Кот-д’Ивуара", "Ничья 0:0 с Кюрасао"], "chance": {"one": "очень вероятно", "draw": "маловероятно", "two": "очень маловероятно"}}, {"id": 55, "group": "E", "date": "25/6", "time": "23:00", "team1": "Ivory Coast", "team2": "Curacao", "team1Ru": "Кот-д’Ивуар", "team2Ru": "Кюрасао", "flagCode1": "ci", "flagCode2": "cw", "need1": "Победа выводит дальше. Ничья может хватить, но лучше не рисковать.", "need2": "Нужна победа. Они уже взяли историческое очко.", "scores1": ["Победа 1:0 над Эквадором", "Поражение 1:2 от Германии"], "scores2": ["Поражение 1:7 от Германии", "Ничья 0:0 с Эквадором"], "chance": {"one": "вероятно", "draw": "может быть", "two": "маловероятно"}}, {"id": 57, "group": "F", "date": "26/6", "time": "02:00", "team1": "Sweden", "team2": "Japan", "team1Ru": "Швеция", "team2Ru": "Япония", "flagCode1": "se", "flagCode2": "jp", "need1": "Очень нужна победа. Ничья может оставить надежду.", "need2": "Ничья почти хватает. Победа может дать первое место.", "scores1": ["Победа 5:1 над Тунисом", "Поражение 1:5 от Нидерландов"], "scores2": ["Ничья 2:2 с Нидерландами", "Победа 4:0 над Тунисом"], "chance": {"one": "может быть", "draw": "может быть", "two": "вероятно"}}, {"id": 58, "group": "F", "date": "26/6", "time": "02:00", "team1": "Netherlands", "team2": "Tunisia", "team1Ru": "Нидерланды", "team2Ru": "Тунис", "flagCode1": "nl", "flagCode2": "tn", "need1": "Ничья почти хватает. Победа может дать первое место.", "need2": "Нужна победа и настоящее чудо.", "scores1": ["Ничья 2:2 с Японией", "Победа 5:1 над Швецией"], "scores2": ["Поражение 1:5 от Швеции", "Поражение 0:4 от Японии"], "chance": {"one": "очень вероятно", "draw": "маловероятно", "two": "очень маловероятно"}}, {"id": 66, "group": "G", "date": "27/6", "time": "06:00", "team1": "Belgium", "team2": "New Zealand", "team1Ru": "Бельгия", "team2Ru": "Новая Зеландия", "flagCode1": "be", "flagCode2": "nz", "need1": "Победа нужна, чтобы чувствовать себя спокойно.", "need2": "Нужна победа. Ничья почти не помогает.", "scores1": ["Ничья 1:1 с Египтом", "Ничья 0:0 с Ираном"], "scores2": ["Ничья 2:2 с Ираном", "Поражение 1:3 от Египта"], "chance": {"one": "вероятно", "draw": "может быть", "two": "маловероятно"}}, {"id": 65, "group": "G", "date": "27/6", "time": "06:00", "team1": "Iran", "team2": "Egypt", "team1Ru": "Иран", "team2Ru": "Египет", "flagCode1": "ir", "flagCode2": "eg", "need1": "Победа выводит дальше. Ничья оставляет надежду.", "need2": "Ничья почти хватает. Победа может дать первое место.", "scores1": ["Ничья 2:2 с Новой Зеландией", "Ничья 0:0 с Бельгией"], "scores2": ["Ничья 1:1 с Бельгией", "Победа 3:1 над Новой Зеландией"], "chance": {"one": "может быть", "draw": "может быть", "two": "вероятно"}}, {"id": 64, "group": "H", "date": "27/6", "time": "03:00", "team1": "Spain", "team2": "Uruguay", "team1Ru": "Испания", "team2Ru": "Уругвай", "flagCode1": "es", "flagCode2": "uy", "need1": "Ничья почти хватает. Победа даёт первое место.", "need2": "Нужна большая игра. Победа очень поможет, ничья опасна.", "scores1": ["Ничья 0:0 с Кабо-Верде", "Победа 4:0 над Саудовской Аравией"], "scores2": ["Ничья 1:1 с Саудовской Аравией", "Ничья 2:2 с Кабо-Верде"], "chance": {"one": "вероятно", "draw": "может быть", "two": "маловероятно"}}, {"id": 63, "group": "H", "date": "27/6", "time": "03:00", "team1": "Cape Verde", "team2": "Saudi Arabia", "team1Ru": "Кабо-Верде", "team2Ru": "Саудовская Аравия", "flagCode1": "cv", "flagCode2": "sa", "need1": "Победа может стать историей и вывести дальше.", "need2": "Нужна победа. Ничья почти не помогает.", "scores1": ["Ничья 0:0 с Испанией", "Ничья 2:2 с Уругваем"], "scores2": ["Ничья 1:1 с Уругваем", "Поражение 0:4 от Испании"], "chance": {"one": "может быть", "draw": "может быть", "two": "может быть"}}, {"id": 61, "group": "I", "date": "26/6", "time": "22:00", "team1": "France", "team2": "Norway", "team1Ru": "Франция", "team2Ru": "Норвегия", "flagCode1": "fr", "flagCode2": "no", "need1": "Уже вышли дальше. Ничья даёт первое место.", "need2": "Уже вышли дальше. Нужна победа, чтобы стать первыми.", "scores1": ["Победа 3:1 над Сенегалом", "Победа 3:0 над Ираком"], "scores2": ["Победа 4:1 над Ираком", "Победа 3:2 над Сенегалом"], "chance": {"one": "вероятно", "draw": "может быть", "two": "может быть"}}, {"id": 62, "group": "I", "date": "26/6", "time": "22:00", "team1": "Iraq", "team2": "Senegal", "team1Ru": "Ирак", "team2Ru": "Сенегал", "flagCode1": "iq", "flagCode2": "sn", "need1": "Нужна победа, чтобы не закончить без очков.", "need2": "Нужна победа и много голов, чтобы осталась надежда.", "scores1": ["Поражение 1:4 от Норвегии", "Поражение 0:3 от Франции"], "scores2": ["Поражение 1:3 от Франции", "Поражение 2:3 от Норвегии"], "chance": {"one": "маловероятно", "draw": "может быть", "two": "вероятно"}}, {"id": 72, "group": "J", "date": "28/6", "time": "05:00", "team1": "Argentina", "team2": "Jordan", "team1Ru": "Аргентина", "team2Ru": "Иордания", "flagCode1": "ar", "flagCode2": "jo", "need1": "Уже вышли дальше и уже первые. Можно играть спокойно.", "need2": "Нужна радость: гол или очко против чемпиона уже будет праздник.", "scores1": ["Победа 3:0 над Алжиром", "Победа 2:0 над Австрией"], "scores2": ["Поражение 1:3 от Австрии", "Поражение 1:2 от Алжира"], "chance": {"one": "очень вероятно", "draw": "очень маловероятно", "two": "почти чудо"}}, {"id": 71, "group": "J", "date": "28/6", "time": "05:00", "team1": "Austria", "team2": "Algeria", "team1Ru": "Австрия", "team2Ru": "Алжир", "flagCode1": "at", "flagCode2": "dz", "need1": "Ничья может хватить. Победа точно выводит дальше.", "need2": "Очень нужна победа за второе место.", "scores1": ["Победа 3:1 над Иорданией", "Поражение 0:2 от Аргентины"], "scores2": ["Поражение 0:3 от Аргентины", "Победа 2:1 над Иорданией"], "chance": {"one": "может быть", "draw": "может быть", "two": "может быть"}}, {"id": 69, "group": "K", "date": "28/6", "time": "02:30", "team1": "Portugal", "team2": "Colombia", "team1Ru": "Португалия", "team2Ru": "Колумбия", "flagCode1": "pt", "flagCode2": "co", "need1": "После победы над Узбекистаном им всё равно нужен хороший результат за первое место.", "need2": "Играют за первое место. Второй матч с ДР Конго ещё нужно обновить.", "scores1": ["Ничья 1:1 с ДР Конго", "Победа 3:0 над Узбекистаном"], "scores2": ["Победа 3:1 над Узбекистаном", "Второй матч ещё не сыгран"], "chance": {"one": "может быть", "draw": "может быть", "two": "может быть"}}, {"id": 70, "group": "K", "date": "28/6", "time": "02:30", "team1": "Uzbekistan", "team2": "DR Congo", "team1Ru": "Узбекистан", "team2Ru": "ДР Конго", "flagCode1": "uz", "flagCode2": "cd", "need1": "Нужна победа, чтобы сохранить надежду.", "need2": "Нужны очки. Второй матч с Колумбией ещё нужно обновить.", "scores1": ["Поражение 1:3 от Колумбии", "Поражение 0:3 от Португалии"], "scores2": ["Ничья 1:1 с Португалией", "Второй матч ещё не сыгран"], "chance": {"one": "маловероятно", "draw": "может быть", "two": "вероятно"}}, {"id": 67, "group": "L", "date": "28/6", "time": "00:00", "team1": "England", "team2": "Panama", "team1Ru": "Англия", "team2Ru": "Панама", "flagCode1": "gb-eng", "flagCode2": "pa", "need1": "Почти точно сильнее. Второй матч с Ганой ещё нужно обновить.", "need2": "Нужна большая сенсация. Второй матч с Хорватией ещё нужно обновить.", "scores1": ["Победа 4:2 над Хорватией", "Второй матч ещё не сыгран"], "scores2": ["Поражение 0:1 от Ганы", "Второй матч ещё не сыгран"], "chance": {"one": "очень вероятно", "draw": "маловероятно", "two": "почти чудо"}}, {"id": 68, "group": "L", "date": "28/6", "time": "00:00", "team1": "Ghana", "team2": "Croatia", "team1Ru": "Гана", "team2Ru": "Хорватия", "flagCode1": "gh", "flagCode2": "hr", "need1": "После победы над Панамой всё интересно. Второй матч с Англией ещё нужно обновить.", "need2": "Нужны очки после поражения от Англии. Второй матч с Панамой ещё нужно обновить.", "scores1": ["Победа 1:0 над Панамой", "Второй матч ещё не сыгран"], "scores2": ["Поражение 2:4 от Англии", "Второй матч ещё не сыгран"], "chance": {"one": "может быть", "draw": "может быть", "two": "вероятно"}}]}</script>
   <script>
-    const DATA = JSON.parse(document.getElementById('data').textContent);
-    const matches = DATA.matches;
-    const storeKey = 'kid-world-cup-2026-round2-guesses-v1';
+    const data = JSON.parse(document.getElementById('data').textContent);
+    const matches = data.matches;
+    const storeKey = 'kid-world-cup-2026-round3-guesses-v1';
+    const $ = (id) => document.getElementById(id);
     let state = JSON.parse(localStorage.getItem(storeKey) || '{}');
-    if (!state.guesses) state = { name: '', current: 0, guesses: {}, locked: false };
+    if (!state.guesses) state.guesses = {};
+    if (typeof state.current !== 'number') state.current = 0;
     let pendingPick = null;
 
-    const $ = (id) => document.getElementById(id);
-    const screens = ['startScreen', 'matchScreen', 'reviewScreen'];
-    const show = (id) => screens.forEach(s => $(s).classList.toggle('active', s === id));
     const save = () => localStorage.setItem(storeKey, JSON.stringify(state));
-    const ruPick = (m, pick) => pick === '1' ? m.team1Ru : pick === '2' ? m.team2Ru : 'ничья';
 
-    function setProgress() {
-      const done = Object.keys(state.guesses).length;
+    function show(id) {
+      document.querySelectorAll('.screen').forEach(el => el.classList.toggle('active', el.id === id));
+    }
+
+    function flagPath(code) {
+      return `flags/${code}.png`;
+    }
+
+    function pickText(match, pick) {
+      if (pick === '1') return `${match.team1Ru} победит`;
+      if (pick === '2') return `${match.team2Ru} победит`;
+      return 'будет ничья';
+    }
+
+    function chanceClass(label) {
+      if (label === 'очень вероятно' || label === 'вероятно') return 'chance hot';
+      if (label === 'может быть') return 'chance mid';
+      if (label === 'маловероятно' || label === 'очень маловероятно') return 'chance low';
+      return 'chance tiny';
+    }
+
+    function setChance(id, label) {
+      const el = $(id);
+      el.textContent = label;
+      el.className = chanceClass(label);
+    }
+
+    function updateProgress() {
+      const done = Object.keys(state.guesses || {}).length;
       $('bar').style.width = `${Math.round(done / matches.length * 100)}%`;
-      $('progressText').textContent = `Готово: ${done} из ${matches.length}`;
+      $('progressText').textContent = `Матч ${Math.min(state.current + 1, matches.length)} из ${matches.length} • выбрано ${done}`;
     }
 
     function renderMatch() {
+      if (state.current >= matches.length) return renderReview();
       const m = matches[state.current];
-      setProgress();
-      show('matchScreen');
-      $('matchMeta').textContent = `Матч ${state.current + 1} из ${matches.length} • Группа ${m.group} • ${m.date} • ${m.time}`;
+      $('groupLabel').textContent = `Группа ${m.group}`;
       $('matchTitle').textContent = `${m.team1Ru} — ${m.team2Ru}`;
-      $('venueText').textContent = m.venue;
-      $('flag1').innerHTML = `<img alt="${m.team1Ru}" src="flags/${m.flagCode1}.png">`;
-      $('flag2').innerHTML = `<img alt="${m.team2Ru}" src="flags/${m.flagCode2}.png">`;
-      $('team1').textContent = m.team1Ru;
-      $('team2').textContent = m.team2Ru;
-      $('firstName1').textContent = `Первый матч: ${m.team1Ru}`;
-      $('firstName2').textContent = `Первый матч: ${m.team2Ru}`;
-      $('firstResult1').textContent = m.firstResult1;
-      $('firstResult2').textContent = m.firstResult2;
-      $('pick1').textContent = `${m.team1Ru} победит`;
-      $('pick2').textContent = `${m.team2Ru} победит`;
-      $('prob1').textContent = `${m.prob.one}%`;
-      $('probX').textContent = `${m.prob.draw}%`;
-      $('prob2').textContent = `${m.prob.two}%`;
+      $('matchTime').textContent = `${m.date}, ${m.time} по Израилю`;
+      $('team1Name').textContent = m.team1Ru;
+      $('team2Name').textContent = m.team2Ru;
+      $('flag1').src = flagPath(m.flagCode1);
+      $('flag2').src = flagPath(m.flagCode2);
+      $('flag1').alt = m.team1Ru;
+      $('flag2').alt = m.team2Ru;
+      $('need1').textContent = m.need1;
+      $('need2').textContent = m.need2;
+      $('score11').textContent = m.scores1[0];
+      $('score12').textContent = m.scores1[1];
+      $('score21').textContent = m.scores2[0];
+      $('score22').textContent = m.scores2[1];
+      $('pick1Name').textContent = m.team1Ru;
+      $('pick2Name').textContent = m.team2Ru;
+      setChance('chance1', m.chance.one);
+      setChance('chanceX', m.chance.draw);
+      setChance('chance2', m.chance.two);
+      const saved = state.guesses[m.id];
+      $('savedLabel').textContent = saved ? `Выбрано: ${pickText(m, saved)}` : 'Ещё не выбрано';
       document.querySelectorAll('.pick').forEach(btn => {
-        btn.classList.toggle('selected', state.guesses[m.id] === btn.dataset.pick);
-        btn.disabled = state.locked;
+        btn.classList.toggle('selected', btn.dataset.pick === saved);
       });
-      $('prevBtn').disabled = state.current === 0;
-      $('statsBox').innerHTML = [teamStatLine(m.team1Ru, m.stats1), teamStatLine(m.team2Ru, m.stats2)].join('');
-      $('h2hBox').innerHTML = h2hLine(m);
-    }
-
-    function teamStatLine(name, s) {
-      if (!s.games) return `<div><b>${name}</b>: мало данных.</div>`;
-      const dots = (s.recent || []).map(g => {
-        const cls = g.result === 'W' ? 'win' : g.result === 'D' ? 'draw' : 'loss';
-        const text = g.result === 'W' ? 'В' : g.result === 'D' ? 'Н' : 'П';
-        return `<span class="dot ${cls}" title="${g.date}: ${g.score}">${text}</span>`;
-      }).join('');
-      return `<div class="team-form">
-        <div class="form-head"><b>${name}</b><span class="form-dots">${dots}</span></div>
-        <div>${s.wins} победы, ${s.draws} ничьи, ${s.losses} поражения</div>
-        <div class="goals-line">Голы в этих играх: ${s.gf}:${s.ga}</div>
-      </div>`;
-    }
-
-    function h2hLine(m) {
-      const h = m.h2h;
-      if (!h.games) return '<div class="h2h-main">В базе нет старых матчей между этими командами.</div><div class="h2h-last">Значит, можно угадывать смело!</div>';
-      const last = h.last ? `<div class="h2h-last">Последний матч: ${h.last.date}. Счёт ${h.last.score}.</div>` : '';
-      return `<div class="h2h-main">Всего встреч: ${h.games}.<br>${m.team1Ru}: ${h.team1Wins} побед • Ничьи: ${h.draws} • ${m.team2Ru}: ${h.team2Wins} побед</div>${last}`;
+      updateProgress();
+      show('match');
     }
 
     function renderReview() {
-      setProgress();
-      show('reviewScreen');
-      $('reviewList').innerHTML = matches.map((m, i) => {
+      $('reviewList').innerHTML = matches.map((m, index) => {
         const pick = state.guesses[m.id];
-        const text = pick ? ruPick(m, pick) : 'нет прогноза';
-        return `<div class="review-item"><div><b>${i + 1}. Группа ${m.group}: ${m.team1Ru} — ${m.team2Ru}</b><br><span class="note">${m.date} ${m.time}</span></div><div>${text}</div></div>`;
+        const answer = pick ? pickText(m, pick) : 'нет ответа';
+        return `<div class="review-item"><div><b>${index + 1}. Группа ${m.group}: ${m.team1Ru} — ${m.team2Ru}</b><br><span class="small">${m.date} ${m.time}</span></div><div><b>${answer}</b></div></div>`;
       }).join('');
+      updateProgress();
+      show('review');
     }
 
     $('startBtn').addEventListener('click', () => {
-      const name = $('playerName').value.trim();
-      if (!name) { alert('Сначала напиши имя.'); return; }
-      state.name = name;
+      state.name = $('playerName').value.trim() || 'Игрок';
       save();
       renderMatch();
     });
 
     document.querySelectorAll('.pick').forEach(btn => {
       btn.addEventListener('click', () => {
-        if (state.locked) return;
         const m = matches[state.current];
         pendingPick = btn.dataset.pick;
-        $('confirmText').textContent = `Сохранить прогноз: ${ruPick(m, pendingPick)}?`;
+        $('confirmText').textContent = `Твой выбор: ${pickText(m, pendingPick)}. Сохраняем?`;
         $('confirmModal').classList.add('active');
       });
     });
 
-    $('cancelPickBtn').addEventListener('click', () => $('confirmModal').classList.remove('active'));
+    $('cancelPickBtn').addEventListener('click', () => {
+      pendingPick = null;
+      $('confirmModal').classList.remove('active');
+    });
+
     $('confirmPickBtn').addEventListener('click', () => {
       const m = matches[state.current];
       state.guesses[m.id] = pendingPick;
-      if (state.current < matches.length - 1) state.current += 1;
-      save();
+      pendingPick = null;
       $('confirmModal').classList.remove('active');
+      state.current = Math.min(state.current + 1, matches.length);
+      save();
       renderMatch();
     });
-    $('prevBtn').addEventListener('click', () => { if (state.current > 0) state.current -= 1; save(); renderMatch(); });
-    $('reviewBtn').addEventListener('click', renderReview);
-    $('backToGameBtn').addEventListener('click', renderMatch);
-    $('lockAllBtn').addEventListener('click', () => {
-      if (Object.keys(state.guesses).length < matches.length && !confirm('Не все матчи заполнены. Всё равно закрепить?')) return;
-      if (!confirm('Точно закрепить все прогнозы? Потом лучше не менять.')) return;
-      state.locked = true; save(); renderReview();
-    });
-    $('downloadBtn').addEventListener('click', () => {
-      const blob = new Blob([JSON.stringify(state, null, 2)], {type: 'application/json'});
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(blob);
-      a.download = `world-cup-round2-guesses-${state.name || 'player'}.json`;
-      a.click();
-    });
-    $('resetBtn').addEventListener('click', () => {
-      if (!confirm('Удалить все прогнозы и начать заново?')) return;
-      localStorage.removeItem(storeKey);
-      state = { name: '', current: 0, guesses: {}, locked: false };
-      $('playerName').value = '';
-      setProgress();
-      show('startScreen');
+
+    $('backBtn').addEventListener('click', () => {
+      state.current = Math.max(0, state.current - 1);
+      save();
+      renderMatch();
     });
 
-    $('playerName').value = state.name || '';
-    if (state.name) renderMatch(); else setProgress();
+    $('reviewBtn').addEventListener('click', renderReview);
+    $('backToMatchBtn').addEventListener('click', () => {
+      state.current = Math.min(state.current, matches.length - 1);
+      save();
+      renderMatch();
+    });
+
+    $('lockBtn').addEventListener('click', () => {
+      state.locked = true;
+      state.lockedAt = new Date().toISOString();
+      save();
+      const payload = JSON.stringify({ player: state.name || 'Игрок', guesses: state.guesses, lockedAt: state.lockedAt }, null, 2);
+      const blob = new Blob([payload], { type: 'application/json' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `world-cup-round3-guesses-${state.name || 'player'}.json`;
+      a.click();
+      URL.revokeObjectURL(a.href);
+    });
+
+    $('resetBtn').addEventListener('click', () => {
+      localStorage.removeItem(storeKey);
+      state = { guesses: {}, current: 0 };
+      $('playerName').value = '';
+      save();
+      updateProgress();
+      show('start');
+    });
+
+    if (state.name) {
+      $('playerName').value = state.name;
+      renderMatch();
+    } else {
+      updateProgress();
+    }
   </script>
 </body>
 </html>
